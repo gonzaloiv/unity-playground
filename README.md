@@ -1,3 +1,3 @@
-# unity-di
+# unity-playground
 
-A couple of approaches to dependecy injection in Unity.
+Unity training scenes to test code hypothesis.
