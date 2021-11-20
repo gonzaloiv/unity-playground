@@ -10,14 +10,12 @@ public class TestView : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private InputField inputField;
 
-    private Binder binder;
-
     protected virtual void Awake()
     {
         Assert.AreNotEqual(button, null);
         Assert.AreNotEqual(slider, null);
         Assert.AreNotEqual(inputField, null);
-        binder = gameObject.AddComponent<Binder>().
+        gameObject.AddComponent<Binder>().
             AddBinding(button.onClick, () => Debug.LogWarning("Button onClick")).
             AddBinding(slider.onValueChanged, value => Debug.LogWarning("Slider onValueChanged " + value)).
             AddBinding(inputField.onEndEdit, value => Debug.LogWarning("InputField onEndEdit " + value)).
