@@ -24,7 +24,6 @@ public class BinderTest
             .AddBinding(button.onClick, () => hasBeenCalled = true);
         yield return new WaitForEndOfFrame();
         button.onClick.Invoke();
-        yield return new WaitForEndOfFrame();
         Assert.AreEqual(hasBeenCalled, true);
     }
 
@@ -38,7 +37,6 @@ public class BinderTest
             .AddBinding(slider.onValueChanged, value => sliderValue = value);
         yield return new WaitForEndOfFrame();
         slider.onValueChanged.Invoke(expectedValue);
-        yield return new WaitForEndOfFrame();
         Assert.AreEqual(sliderValue, expectedValue);
     }
 
@@ -52,7 +50,6 @@ public class BinderTest
             .AddBinding(inputField.onValueChanged, value => inputFieldValue = value);
         yield return new WaitForEndOfFrame();
         inputField.onValueChanged.Invoke(expectedValue);
-        yield return new WaitForEndOfFrame();
         Assert.AreEqual(inputFieldValue, expectedValue);
     }
 
