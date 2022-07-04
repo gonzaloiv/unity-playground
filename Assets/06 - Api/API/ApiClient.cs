@@ -5,12 +5,12 @@ using Proyecto26;
 using RSG;
 using UnityEngine;
 
-public abstract class ApiClient : Locator
+public abstract class ApiClient
 {
 
     protected string jwt;
 
-    public ApiSettings Settings { get; set; }
+    public ApiSettings Settings { get; private set; }
     public string JWT
     {
         get => jwt;
@@ -23,21 +23,22 @@ public abstract class ApiClient : Locator
     }
     public bool IsLogged { get { return !string.IsNullOrEmpty(jwt); } }
 
-    public virtual void Register<T>(IDao<T> instance)
+    public ApiClient(ApiSettings settings)
     {
-        base.Register<T>(instance);
-        instance.ApiClient = this;
+        this.Settings = settings;
     }
 
-    public virtual IDao<T> For<T>()
-    {
-        return Get<T>() as IDao<T>;
-    }
-
-    public virtual Promise<T> Get<T>(int id)
-    {
-        return For<T>().Get(id);
-    }
     public abstract Promise Login();
+
+    public virtual Promise<T> Get<T>(string uri, int id)
+    {
+        Promise<T> promise = new Promise<T>();
+        RequestHelper requestHelper = new RequestHelper();
+        requestHelper.Uri = Settings.baseUrl + "/" + uri + "/" + id;
+        RestClient.Get<T>(requestHelper)
+            .Then(result => promise.Resolve(result))
+            .Catch(promise.Reject);
+        return promise;
+    }
 
 }

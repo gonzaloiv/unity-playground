@@ -9,7 +9,7 @@ using UnityEngine;
 public class DirectusClient : ApiClient
 {
 
-    #region Login 
+    public DirectusClient(ApiSettings settings) : base(settings) { }
 
     public override Promise Login()
     {
@@ -23,13 +23,13 @@ public class DirectusClient : ApiClient
         RestClient.Post(requestHelper)
             .Then(response =>
             {
-                JWT = JToken.Parse(response.Text) ["data"]["token"].ToString();
+                JWT = JToken.Parse(response.Text)["data"]["token"].ToString();
                 promise.Resolve();
             })
             .Catch(error => promise.Reject(error));
         return promise;
     }
 
-    #endregion
+    
 
 }

@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class StrapiClient : ApiClient
 {
-
-    #region Login 
+    
+    public StrapiClient(ApiSettings settings) : base(settings) { }
 
     public override Promise Login()
     {
@@ -20,13 +20,11 @@ public class StrapiClient : ApiClient
         RestClient.Post(new RequestHelper { Uri = Settings.baseUrl + "/auth/local", FormData = form })
             .Then((response) =>
             {
-                JWT = JToken.Parse(response.Text) ["jwt"].ToString();
+                JWT = JToken.Parse(response.Text)["jwt"].ToString();
                 promise.Resolve();
             })
             .Catch(error => promise.Reject(error));
         return promise;
     }
-
-    #endregion
 
 }

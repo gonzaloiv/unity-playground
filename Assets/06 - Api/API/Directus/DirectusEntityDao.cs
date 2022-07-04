@@ -14,14 +14,8 @@ public class DirectusEntityDao : IDao<Entity>
     public Promise<Entity> Get(int id)
     {
         Promise<Entity> promise = new Promise<Entity>();
-        RequestHelper requestHelper = new RequestHelper();
-        requestHelper.Uri = ApiClient.Settings.baseUrl + "/" + Uri + "/" + id;
-        RestClient.Get(requestHelper)
-            .Then(response =>
-            {
-                DirectusEntity directusEntity = JsonConvert.DeserializeObject<DirectusEntity>(response.Text);
-                promise.Resolve(directusEntity.ToEntity());
-            })
+        ApiClient.Get<DirectusEntity>(Uri, id)
+            .Then(directusEntity => { promise.Resolve(directusEntity.ToEntity()); })
             .Catch(promise.Reject);
         return promise;
     }

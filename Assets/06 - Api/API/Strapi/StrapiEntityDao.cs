@@ -12,13 +12,7 @@ public class StrapiEntityDao : IDao<Entity>
 
     public Promise<Entity> Get(int id)
     {
-        Promise<Entity> promise = new Promise<Entity>();
-        RequestHelper requestHelper = new RequestHelper();
-        requestHelper.Uri = ApiClient.Settings.baseUrl + "/" + Uri + "/" + id;
-        RestClient.Get<Entity>(requestHelper)
-            .Then(entity => promise.Resolve(entity))
-            .Catch(promise.Reject);
-        return promise;
+        return ApiClient.Get<Entity>(Uri, id);
     }
 
 }

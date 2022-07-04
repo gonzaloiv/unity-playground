@@ -5,20 +5,20 @@ using UnityEngine;
 public static partial class ApiFactory
 {
 
-    public static ApiClient CreateStrapiClient(ApiSettings settings)
+    public static ApiContainer CreateStrapiContainer(ApiSettings settings)
     {
-        ApiClient client = new StrapiClient();
-        client.Settings = settings;
-        client.Register<Entity>(new StrapiEntityDao());
-        return client;
+        ApiClient client = new StrapiClient(settings);
+        ApiContainer container = new ApiContainer(client);
+        container.Register<Entity>(new StrapiEntityDao());
+        return container;
     }
 
-    public static ApiClient CreateDirectusClient(ApiSettings settings)
+    public static ApiContainer CreateDirectusContainer(ApiSettings settings)
     {
-        ApiClient client = new DirectusClient();
-        client.Settings = settings;
-        client.Register<Entity>(new DirectusEntityDao());
-        return client;
+        ApiClient client = new DirectusClient(settings);
+        ApiContainer container = new ApiContainer(client);
+        container.Register<Entity>(new DirectusEntityDao());
+        return container;
     }
 
 }
