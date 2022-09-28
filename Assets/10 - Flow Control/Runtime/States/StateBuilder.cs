@@ -39,9 +39,21 @@ namespace FlowControl
             return this;
         }
 
-        public StateBuilder<T> Views(params IView[] views)
+        public StateBuilder<T> Show(params IShowable[] showables)
         {
-            state.SetViews(views);
+            state.Show(showables);
+            return this;
+        }
+
+        public StateBuilder<T> Hide(params IHideable[] hideables)
+        {
+            state.Hide(hideables);
+            return this;
+        }
+
+        public StateBuilder<T> Scenes(params string[] sceneNames)
+        {
+            state.Scenes(sceneNames);
             return this;
         }
 

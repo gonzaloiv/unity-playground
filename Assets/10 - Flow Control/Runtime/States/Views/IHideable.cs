@@ -5,10 +5,11 @@ using UnityEngine;
 namespace FlowControl
 {
 
-    public interface IView
+    public interface IHideable
     {
-        void Show();
         void Hide();
     }
 
+
 }
+

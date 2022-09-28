@@ -6,16 +6,20 @@ using UnityEngine.UI;
 namespace FlowControl
 {
 
-    public class StateMachineSample : MonoBehaviour
+    public class StateDataSample : MonoBehaviour
     {
-
-        private StateMachine stateMachine;
 
         [SerializeField] private CubeBehaviour cube;
         [SerializeField] private SphereBehaviour sphere;
+        [SerializeField] private StateData cubeStateData;
+
+        private StateMachine stateMachine;
+        private StateFactory factory;
 
         private void Start()
         {
+            factory = new StateFactory();
+            factory.Register(cube, sphere);
             cube.Init();
             sphere.Init();
             Setup();
@@ -24,13 +28,7 @@ namespace FlowControl
         private void Setup()
         {
             this.stateMachine = new StateMachine();
-            stateMachine.Register(
-                new StateBuilder<State>()
-                    .Route("CubeState")
-                    .Show(cube)
-                    .Hide(cube)
-                    .Build()
-            );
+            stateMachine.Register(factory.Convert(cubeStateData));
             stateMachine.Register(
                 new StateBuilder<State>()
                     .Route("SphereState")

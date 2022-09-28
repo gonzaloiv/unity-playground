@@ -1060,11 +1060,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1903908794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9452462e20398054a8525b1d1494d662, type: 3}
+  m_Script: {fileID: 11500000, guid: 766e6e3a3b8c84119a678692c4a42f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cube: {fileID: 67428296}
   sphere: {fileID: 1840192724}
+  cubeStateData: {fileID: 11400000, guid: 0404d93c44326455d9f09d099b8ce83c, type: 2}
 --- !u!1 &2025438391
 GameObject:
   m_ObjectHideFlags: 0
